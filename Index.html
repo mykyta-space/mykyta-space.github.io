@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mykyta | Personal website</title>
+  <meta name="description" content="Mykyta's personal website: about and projects.">
+
+  <!-- Font (loads from Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+
+  <script>
+    // If a picture file is missing, show a gray box with the picture name.
+    function ph(img) {
+      img.onerror = null;
+      var t = (img.alt || "Picture").replace(/[<&>]/g, "");
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">' +
+        '<rect width="100%" height="100%" fill="#C9D3DB"/>' +
+        '<text x="50%" y="50%" font-family="sans-serif" font-size="30" fill="#56636F" ' +
+        'text-anchor="middle" dominant-baseline="middle">' + t + '</text></svg>');
+    }
+  </script>
+
+  <style>
+    /* ===== COLORS: change these to change the look ===== */
+    :root {
+      --paper: #E9EDF0;   /* page background */
+      --grid:  #D3DAE0;   /* background grid lines */
+      --ink:   #17212B;   /* main text and borders */
+      --muted: #56636F;   /* small text */
+      --accent:#2346C4;   /* links and highlights */
+      --card:  #FFFFFF;   /* content areas */
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #121A22; --grid: #1D2833; --ink: #E6ECF1;
+        --muted: #9AA7B3; --accent: #7C97FF; --card: #18222C;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    /* ===== BACKGROUND =====
+       Now: a drafting-paper grid.
+       To use your own picture, delete the "background-image" and
+       "background-size" lines and use this line:
+       background: var(--paper) url("images/background.jpg") center / cover fixed;
+    */
+    body {
+      margin: 0;
+      font-family: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    a { color: var(--accent); text-underline-offset: 3px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 10; background: var(--card); padding: 8px 12px; }
+
+    /* ===== PAGE WIDTH: change max-width to make the site wider or narrower ===== */
+    .page {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 64px);
+    }
+
+    /* ===== HEADER: photo and name ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: clamp(20px, 4vw, 56px);
+      align-items: end;
+      margin-bottom: 48px;
+    }
+    .photo {
+      display: block;
+      width: clamp(140px, 18vw, 260px);
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 2px solid var(--ink);
+      box-shadow: 10px 10px 0 var(--accent);
+      background: var(--grid);
+    }
+    .name {
+      margin: 0 0 16px;
+      font-stretch: 125%;
+      font-weight: 800;
+      font-size: clamp(2.6rem, 7vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      overflow-wrap: anywhere;
+    }
+    .role { margin: 0 0 14px; color: var(--muted); max-width: 56ch; }
+    .links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+    .links a { font-weight: 600; }
+
+    /* ===== SECTIONS ===== */
+    .panel {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      padding: clamp(20px, 3vw, 44px);
+    }
+    .panel + .panel { margin-top: 28px; }
+    .panel h2 { font-stretch: 112%; font-size: 1.9rem; line-height: 1.2; margin: 0 0 18px; }
+    .about-text p { max-width: 72ch; }
+
+    /* ===== PROJECTS ===== */
+    .project-tabs {
+      display: flex;
+      overflow-x: auto;
+      border-bottom: 2px solid var(--grid);
+      margin-bottom: 28px;
+    }
+    .project-tabs button {
+      font: inherit;
+      font-stretch: 112%;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 10px 20px;
+      margin-bottom: -2px;
+      background: none;
+      color: var(--muted);
+      border: 0;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+    }
+    .project-tabs button:hover { color: var(--ink); }
+    .project-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+    .project {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: clamp(24px, 3vw, 48px);
+      align-items: start;
+    }
+    .gallery-main {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border: 1px solid var(--grid);
+      background: var(--grid);
+    }
+    .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .thumb { width: 96px; padding: 0; background: none; border: 2px solid transparent; cursor: pointer; }
+    .thumb img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .thumb[aria-pressed="true"] { border-color: var(--accent); }
+
+    .project h3 { font-stretch: 112%; font-size: 1.6rem; line-height: 1.2; margin: 0 0 10px; }
+    .project-info p { max-width: 60ch; }
+    .tools { color: var(--muted); font-size: 0.95rem; }
+
+    footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
+
+    /* ===== PHONES AND SMALL SCREENS ===== */
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; align-items: start; }
+      .project { grid-template-columns: 1fr; }
+      .thumb { width: 72px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="page">
+
+    <!-- ===== HEADER: change the photo, name, sentence, and links ===== -->
+    <header class="hero">
+      <img class="photo" src="images/profile.jpg" alt="Photo of Mykyta" width="260" height="260" onerror="ph(this)">
+      <div>
+        <h1 class="name">Mykyta<br>Surname</h1>
+        <p class="role">Write one sentence about who you are and what you do.</p>
+        <ul class="links">
+          <li><a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li>
+          <li><a href="mailto:hello@mykyta.space">hello@mykyta.space</a></li>
+          <li><a href="https://github.com/username">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/username">LinkedIn</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <!-- ===== ABOUT ===== -->
+      <section class="panel about-text" aria-labelledby="about-title">
+        <h2 id="about-title">About me</h2>
+        <p>Write 2 or 3 sentences about yourself here. Tell what you study or work on, and what you like to build.</p>
+        <p>Write about what you want to do next, or what kind of work you are looking for.</p>
+      </section>
+
+      <!-- ===== PROJECTS ===== -->
+      <section class="panel" aria-labelledby="projects-title">
+        <h2 id="projects-title">Projects</h2>
+
+        <!-- Project names. Add one button for each project. -->
+        <div class="project-tabs" role="tablist" aria-label="Projects">
+          <button role="tab" id="tab-p1" aria-controls="p1" aria-selected="true">Project one</button>
+          <button role="tab" id="tab-p2" aria-controls="p2" aria-selected="false" tabindex="-1">Project two</button>
+          <button role="tab" id="tab-p3" aria-controls="p3" aria-selected="false" tabindex="-1">Project three</button>
+        </div>
+
+        <!-- PROJECT 1 -->
+        <article id="p1" class="project" role="tabpanel" aria-labelledby="tab-p1">
+          <div class="gallery">
+            <img class="gallery-main" src="images/project1-1.jpg" alt="Project one, picture 1" onerror="ph(this)">
+            <div class="thumbs">
+              <button class="thumb" aria-pressed="true"><img src="images/project1-1.jpg" alt="Project one, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/project1-2.jpg" alt="Project one, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/project1-3.jpg" alt="Project one, picture 3" onerror="ph(this)"></button>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Project one</h3>
+            <p>Tell what the project is, what problem it solves, and what you did.</p>
+            <p class="tools">Tools: write the software, parts, or methods you used.</p>
+            <a href="#">See more</a>
+          </div>
+        </article>
+
+        <!-- PROJECT 2 -->
+        <article id="p2" class="project" role="tabpanel" aria-labelledby="tab-p2" hidden>
+          <div class="gallery">
+            <img class="gallery-main" src="images/project2-1.jpg" alt="Project two, picture 1" onerror="ph(this)">
+            <div class="thumbs">
+              <button class="thumb" aria-pressed="true"><img src="images/project2-1.jpg" alt="Project two, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/project2-2.jpg" alt="Project two, picture 2" onerror="ph(this)"></button>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Project two</h3>
+            <p>Tell what the project is, what problem it solves, and what you did.</p>
+            <p class="tools">Tools: write the software, parts, or methods you used.</p>
+            <a href="#">See more</a>
+          </div>
+        </article>
+
+        <!-- PROJECT 3 -->
+        <article id="p3" class="project" role="tabpanel" aria-labelledby="tab-p3" hidden>
+          <div class="gallery">
+            <img class="gallery-main" src="images/project3-1.jpg" alt="Project three, picture 1" onerror="ph(this)">
+            <div class="thumbs">
+              <button class="thumb" aria-pressed="true"><img src="images/project3-1.jpg" alt="Project three, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/project3-2.jpg" alt="Project three, picture 2" onerror="ph(this)"></button>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Project three</h3>
+            <p>Tell what the project is, what problem it solves, and what you did.</p>
+            <p class="tools">Tools: write the software, parts, or methods you used.</p>
+            <a href="#">See more</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>&copy; <span id="year"></span> Mykyta</footer>
+  </div>
+
+  <script>
+    // Project tabs (mouse and keyboard)
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.project-tabs [role="tab"]'));
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on);
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t); });
+      t.addEventListener("keydown", function (e) {
+        var j = null;
+        if (e.key === "ArrowRight") j = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") j = 0;
+        else if (e.key === "End") j = tabs.length - 1;
+        if (j !== null) { e.preventDefault(); select(tabs[j], true); }
+      });
+    });
+
+    // Picture galleries: select a small picture to show it large
+    document.querySelectorAll(".gallery").forEach(function (g) {
+      var big = g.querySelector(".gallery-main");
+      var thumbs = g.querySelectorAll(".thumb");
+      thumbs.forEach(function (b) {
+        b.addEventListener("click", function () {
+          var img = b.querySelector("img");
+          big.src = img.src;
+          big.alt = img.alt;
+          thumbs.forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+        });
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
