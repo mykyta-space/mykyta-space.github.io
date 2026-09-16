@@ -1,0 +1,244 @@
+/* Shared style for all project pages */
+
+/* ===== COLORS: the same as index.html ===== */
+:root {
+  --paper: #E9EDF0;
+  --grid:  #D3DAE0;
+  --ink:   #17212B;
+  --muted: #56636F;
+  --accent:#2346C4;
+  --card:  #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121A22; --grid: #1D2833; --ink: #E6ECF1;
+    --muted: #9AA7B3; --accent: #7C97FF; --card: #18222C;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper) url("images/Background.jpg") center / cover fixed;
+  overflow-x: hidden;
+}
+
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+img { max-width: 100%; }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 10; background: var(--card); padding: 8px 12px; }
+
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 48px) clamp(16px, 4vw, 64px);
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px clamp(16px, 3vw, 28px);
+  background: var(--card);
+  margin-bottom: 16px;
+}
+.home {
+  color: var(--ink);
+  font-stretch: 118%;
+  font-weight: 800;
+  text-decoration: none;
+}
+.home:hover { color: var(--accent); }
+.pager { display: flex; gap: 20px; }
+.pager a { font-weight: 600; text-decoration: none; }
+.pager a:hover { text-decoration: underline; }
+
+/* ===== MAIN SHEET ===== */
+.sheet {
+  background: var(--card);
+  padding: clamp(24px, 4vw, 64px);
+}
+
+.intro { margin-bottom: clamp(24px, 3vw, 40px); }
+.intro h1 {
+  margin: 0 0 14px;
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6.5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  max-width: 16ch;
+}
+.lede {
+  margin: 0;
+  max-width: 48ch;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Main picture: full picture, not taller than 80% of the screen */
+.pic { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; }
+.lead { width: 100%; margin-bottom: clamp(32px, 4vw, 56px); }
+.lead img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  object-position: left top;
+}
+
+/* ===== TEXT AND FACTS ===== */
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.text section + section { margin-top: 36px; }
+.sheet h2 {
+  font-stretch: 112%;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+.text p { max-width: 66ch; margin: 0 0 14px; }
+.external { margin-top: 28px !important; font-weight: 600; }
+
+.facts {
+  position: sticky;
+  top: 24px;
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+}
+.facts dl { margin: 0 0 28px; }
+.facts dt { color: var(--muted); font-size: 0.9rem; }
+.facts dd { margin: 0 0 14px; font-weight: 600; }
+.facts h2 { font-size: 1.1rem; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.chips li {
+  padding: 3px 10px;
+  font-size: 0.9rem;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-radius: 3px;
+}
+
+/* ===== ALL PICTURES ===== */
+.gallery { margin-top: clamp(48px, 6vw, 88px); }
+.grid {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.grid .pic { width: 100%; overflow: hidden; }
+.grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.grid .pic:hover img { transform: scale(1.04); }
+
+/* ===== OTHER PROJECTS ===== */
+.more {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: clamp(48px, 6vw, 88px);
+  border-top: 2px solid var(--grid);
+  padding-top: 24px;
+}
+.more a {
+  color: var(--ink);
+  text-decoration: none;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.2;
+}
+.more a:hover { color: var(--accent); }
+.more span {
+  display: block;
+  margin-bottom: 4px;
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.more .next { text-align: right; }
+
+footer { margin-top: 20px; color: var(--muted); font-size: 0.9rem; }
+footer span { background: var(--card); }
+
+/* ===== FULL-SCREEN PICTURE VIEWER ===== */
+.viewer {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(10, 14, 18, 0.97);
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
+.viewer[open] { display: flex; align-items: center; justify-content: center; }
+.viewer::backdrop { background: transparent; }
+.viewer figure { margin: 0; text-align: center; }
+.viewer img {
+  display: block;
+  max-width: 86vw;
+  max-height: 84vh;
+  object-fit: contain;
+  margin: 0 auto;
+}
+.viewer figcaption { margin-top: 12px; font-size: 0.95rem; color: #C7D0D8; }
+.viewer button {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.viewer button:hover { background: rgba(255, 255, 255, 0.24); }
+.v-close { top: 16px; right: 16px; }
+.v-prev { left: 16px; top: calc(50% - 26px); }
+.v-next { right: 16px; top: calc(50% - 26px); }
+
+/* ===== PHONES AND SMALL SCREENS ===== */
+@media (max-width: 860px) {
+  .body { grid-template-columns: 1fr; }
+  .facts { position: static; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .viewer img { max-width: 100vw; }
+  .v-prev, .v-next { top: auto; bottom: 16px; }
+}
+@media (max-width: 520px) {
+  .more { grid-template-columns: 1fr; }
+  .more .next { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grid img { transition: none; }
+}

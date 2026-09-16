@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spaceport 2024 | Mykyta Holubetskyi</title>
+  <meta name="description" content="My first IREC, with a small restarted team, and the Sportsmanship Award.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project.css">
+  <script>
+    // If a picture file is missing, show a gray box with the picture name.
+    function ph(img) {
+      img.onerror = null;
+      var t = (img.alt || "Picture").replace(/[<&>]/g, "");
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">' +
+        '<rect width="100%" height="100%" fill="#C9D3DB"/>' +
+        '<text x="50%" y="50%" font-family="sans-serif" font-size="30" fill="#56636F" ' +
+        'text-anchor="middle" dominant-baseline="middle">' + t + '</text></svg>');
+    }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <div class="page">
+
+    <!-- ===== TOP BAR ===== -->
+    <nav class="topbar" aria-label="Site">
+      <a class="home" href="index.html#p3">Mykyta Holubetskyi</a>
+      <div class="pager">
+        <a href="irec-2025.html" data-glide="-1" aria-label="Previous project: IREC 2025">Previous</a>
+        <a href="machining-lead.html" data-glide="1" aria-label="Next project: SEDS RD at ASU Machining Lead">Next</a>
+      </div>
+    </nav>
+
+    <main id="content" class="sheet">
+
+      <!-- ===== TITLE ===== -->
+      <header class="intro">
+        <h1>Spaceport 2024</h1>
+        <p class="lede">My first IREC, with a small restarted team, and the Sportsmanship Award.</p>
+      </header>
+
+      <!-- ===== MAIN PICTURE (the first picture in the list below) ===== -->
+      <button class="lead pic" data-index="0" aria-label="Open Spaceport 2024, picture 1">
+        <img src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)">
+      </button>
+
+      <div class="body">
+        <!-- ===== TEXT: copy a <section> block to add a new part ===== -->
+        <div class="text">
+        <section>
+          <h2>The competition</h2>
+          <p>My first IREC, at the Spaceport America Cup, with SEDS RD at ASU. The club restarted in 2024, and I was part of it from the beginning. On a small team, I worked personally on every part of our rocket, Project Wumbo. Our team won the Sportsmanship Award.</p>
+        </section>
+
+        <section>
+          <h2>L1 and L2 certification</h2>
+          <p>In the same year, I earned my NAR Level 1 and Level 2 high-power rocketry certifications. I designed, simulated, launched, and recovered two personal rockets: one significantly modified kit and one built from scratch.</p>
+        </section>
+        <p class="external"><a href="https://seds-rd.space/wumbo/" target="_blank" rel="noopener">Project Wumbo on the SEDS RD website</a></p>
+        </div>
+
+        <!-- ===== FACTS AND TOOLS ===== -->
+        <aside class="facts" aria-label="Project facts">
+          <dl>
+          <div><dt>Dates</dt><dd>Sep 2023 – Jun 2024</dd></div>
+          <div><dt>Result</dt><dd>Sportsmanship Award</dd></div>
+          <div><dt>Rocket</dt><dd>Project Wumbo</dd></div>
+          <div><dt>Team</dt><dd>SEDS RD at ASU</dd></div>
+          </dl>
+          <h2>Tools</h2>
+          <ul class="chips">
+            <li>OpenRocket</li>
+            <li>RASAero</li>
+            <li>Ansys</li>
+            <li>Fusion 360</li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- ===== ALL PICTURES: add one <li> line for each picture ===== -->
+      <section class="gallery" aria-labelledby="pictures-title">
+        <h2 id="pictures-title">Pictures</h2>
+        <ul class="grid">
+          <li><button class="pic" data-index="0" aria-label="Open Spaceport 2024, picture 1"><img src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" loading="lazy" onerror="ph(this)"></button></li>
+        </ul>
+      </section>
+
+      <!-- ===== OTHER PROJECTS ===== -->
+      <nav class="more" aria-label="Other projects">
+        <a class="prev" href="irec-2025.html" data-glide="-1"><span>Previous project</span>IREC 2025</a>
+        <a class="next" href="machining-lead.html" data-glide="1"><span>Next project</span>SEDS RD at ASU Machining Lead</a>
+      </nav>
+    </main>
+
+    <footer><span>&copy; <span id="year"></span> Mykyta Holubetskyi</span></footer>
+  </div>
+
+  <!-- ===== FULL-SCREEN PICTURE VIEWER ===== -->
+  <dialog class="viewer" aria-label="Picture viewer">
+    <button class="v-close" aria-label="Close">&times;</button>
+    <button class="v-prev" aria-label="Previous picture">&#8249;</button>
+    <figure>
+      <img alt="">
+      <figcaption></figcaption>
+    </figure>
+    <button class="v-next" aria-label="Next picture">&#8250;</button>
+  </dialog>
+
+  <script src="project.js"></script>
+</body>
+</html>

@@ -202,7 +202,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
     <main id="main">
 
       <!-- ===== PROJECTS ===== -->
-      <section class="panel projects-panel" aria-labelledby="projects-title">
+      <section id="projects" class="panel projects-panel" aria-labelledby="projects-title">
         <h2 id="projects-title">Projects</h2>
 
         <!-- Project names. Each project needs ONE button here. -->
@@ -232,7 +232,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <p>My third year at the Intercollegiate Rocket Engineering Competition (IREC), the largest rocketry competition in the world, with SEDS RD at ASU. Our team moved up to the harder category of student researched and developed (SRAD) hybrid motor rockets and won 4th place.</p>
             <p>Our rocket flew on the custom M527 hybrid motor that I developed with Michael Bravo, SEDS RD President. Before the competition, we built Cactus Cooler: a 12 ft single-stage fiberglass rocket designed to fly to 7,000 ft at Mach 1.5, as a testbed for the motor performance and our custom avionics.</p>
             <p class="tools"><strong>Tools:</strong> Hybrid propulsion, fiberglass composites, custom avionics, Fusion 360, OpenRocket, RASAero</p>
-            <a href="https://seds-rd.space/rockets/" target="_blank" rel="noopener">SEDS RD rockets</a>
+            <a href="irec-2026.html">Read the full project</a>
           </div>
         </article>
 
@@ -252,7 +252,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <p>My second IREC with SEDS RD at ASU. Our team competed in the commercial off-the-shelf (COTS) solid motor category and won 7th place in the category, and 12th place overall out of more than 170 teams from around the world.</p>
             <p>As the team grew, I worked as part of a large team with many specialized subteams. My roles across IREC included Propulsion Co-Lead, Lead Machinist, composite manufacturing, and CAD and simulation.</p>
             <p class="tools"><strong>Tools:</strong> Fusion 360, OpenRocket, RASAero, Ansys, composites, CNC, lathe</p>
-            <a href="https://seds-rd.space/dustdevil/" target="_blank" rel="noopener">DustDevil rocket on the SEDS RD website</a>
+            <a href="irec-2025.html">Read the full project</a>
           </div>
         </article>
 
@@ -270,7 +270,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <p>My first IREC, at the Spaceport America Cup, with SEDS RD at ASU. The club restarted in 2024, and I was part of it from the beginning. On a small team, I worked personally on every part of our rocket, Project Wumbo. Our team won the Sportsmanship Award.</p>
             <p>In the same year, I earned my NAR Level 1 and Level 2 high-power rocketry certifications. I designed, simulated, launched, and recovered two personal rockets: one significantly modified kit and one built from scratch.</p>
             <p class="tools"><strong>Tools:</strong> OpenRocket, RASAero, Ansys, Fusion 360</p>
-            <a href="https://seds-rd.space/wumbo/" target="_blank" rel="noopener">Project Wumbo on the SEDS RD website</a>
+            <a href="spaceport-2024.html">Read the full project</a>
           </div>
         </article>
 
@@ -295,7 +295,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <p>As Lead Machinist for the Students for the Exploration and Development of Space Rocketry Division (SEDS RD) at ASU, I manufacture parts for our competition rockets and motor test hardware.</p>
             <p>I grew from a member of a small team working on every part of the rocket to leading others on complex collaborative projects. I also led a Rocketry Certification Class of 8 new members, where I taught rocketry fundamentals and guided them to their L1 certification.</p>
             <p class="tools"><strong>Tools:</strong> CNC, lathe, TIG welding, MIG welding, soldering, composites, Fusion 360</p>
-            <a href="https://seds-rd.space/" target="_blank" rel="noopener">SEDS RD at ASU website</a>
+            <a href="machining-lead.html">Read the full project</a>
           </div>
         </article>
 
@@ -314,6 +314,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <p>With Michael Bravo, SEDS RD President, I developed a custom liquid nitrous oxide hybrid rocket motor for IREC 2026. The motor uses a 3D printed fuel grain with complex geometry and reached 600.51 lbf peak thrust.</p>
             <p>To test the motor, we developed a static fire test stand with a load cell and a fueling setup, and conducted 8 hot fires. I diagnosed and fixed defective valves, leaking piping, cryogenic temperature management, and suboptimal ignition.</p>
             <p class="tools"><strong>Tools:</strong> Hybrid propulsion, liquid nitrous oxide, 3D printed fuel grain, load cell data acquisition, static fire test stand, cryogenic fueling</p>
+            <a href="hybrids-research.html">Read the full project</a>
           </div>
         </article>
 
@@ -403,6 +404,21 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         if (j !== null) { e.preventDefault(); select(tabs[j], true); }
       });
     });
+
+    // Open a project from the address, for example mykyta.space/#p3
+    // (the project pages use this to go back to the correct project)
+    (function () {
+      var id = location.hash.slice(1);
+      var tab = tabs.filter(function (t) { return t.getAttribute("aria-controls") === id; })[0];
+      if (!tab) return;
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on);
+        t.tabIndex = on ? 0 : -1;
+      });
+      showOnly(document.getElementById(id));
+      document.getElementById("projects").scrollIntoView();
+    })();
 
     // Picture galleries: select a small picture to show it large
     document.querySelectorAll(".gallery").forEach(function (g) {
