@@ -44,7 +44,7 @@
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
 
-    /* ===== BACKGROUND: the picture file is images/background.jpg ===== */
+    /* ===== BACKGROUND: the picture file is images/Background.jpg ===== */
     body {
       margin: 0;
       font-family: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -80,7 +80,6 @@
       width: clamp(140px, 18vw, 260px);
       aspect-ratio: 1;
       object-fit: cover;
-      border: 2px solid var(--ink);
       box-shadow: 10px 10px 0 var(--accent);
       background: var(--grid);
     }
@@ -100,7 +99,6 @@
     /* ===== SECTIONS ===== */
     .panel {
       background: var(--card);
-      border: 2px solid var(--ink);
       padding: clamp(20px, 3vw, 44px);
     }
     .panel + .panel { margin-top: 28px; }
@@ -114,7 +112,8 @@
           color-mix(in srgb, var(--card) 80%, transparent),
           color-mix(in srgb, var(--card) 80%, transparent)
         ),
-        url("images/projects-background.jpg") center / cover;
+        url("images/projects-background.jpg") center / cover,
+        var(--card);
     }
 
     /* ===== PROJECTS ===== */
@@ -139,6 +138,9 @@
     .project-tabs button:hover { color: var(--ink); }
     .project-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 
+    /* ANIMATION: the area that holds the projects */
+    .project-stage { position: relative; overflow-x: hidden; overflow-x: clip; }
+
     .project {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
@@ -153,8 +155,7 @@
       height: auto;
       max-height: 85vh;
       object-fit: contain;
-      border: 1px solid var(--grid);
-      background: var(--grid);
+      object-position: left top;
     }
     .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .thumb { width: 96px; padding: 0; background: none; border: 2px solid transparent; cursor: pointer; }
@@ -213,6 +214,8 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
           <button role="tab" id="tab-p5" aria-controls="p5" aria-selected="false" tabindex="-1">Hybrids Research Capstone</button>
         </div>
 
+        <div class="project-stage">
+
         <!-- PROJECT 1 -->
         <article id="p1" class="project" role="tabpanel" aria-labelledby="tab-p1">
           <div class="gallery">
@@ -220,6 +223,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <div class="thumbs">
               <button class="thumb" aria-pressed="true"><img src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)"></button>
               <button class="thumb" aria-pressed="false"><img src="images/IREC_2026_2.jpg" alt="IREC 2026, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/Cactus_Cooler_1.jpg" alt="Cactus Cooler rocket" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -238,6 +242,8 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <img class="gallery-main" src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)">
             <div class="thumbs">
               <button class="thumb" aria-pressed="true"><img src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_2.jpg" alt="IREC 2025, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_3.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -256,7 +262,6 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
             <img class="gallery-main" src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)">
             <div class="thumbs">
               <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Spaceport_2024_2.jpg" alt="Spaceport 2024, picture 2" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -312,6 +317,7 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
           </div>
         </article>
 
+        </div>
       </section>
     </main>
 
@@ -319,18 +325,73 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
   </div>
 
   <script>
-    // Project tabs (mouse and keyboard)
+    // Project tabs (mouse and keyboard) with a gliding animation
+    // ANIMATION SETTINGS: change these values
+    var GLIDE = 120;     // distance that a project glides, in pixels
+    var FADE_OUT = 220;  // time for the old project to glide out, in milliseconds
+    var FADE_IN  = 480;  // time for the new project to glide in, in milliseconds
+    var EASE = "cubic-bezier(0.2, 0.7, 0.2, 1)";
+
     var tabs = Array.prototype.slice.call(document.querySelectorAll('.project-tabs [role="tab"]'));
+    var stage = document.querySelector(".project-stage");
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var step = 0;
+
+    function showOnly(panel) {
+      stage.querySelectorAll(".project").forEach(function (p) { p.hidden = p !== panel; });
+    }
+
     function select(tab, focus) {
       tabs.forEach(function (t) {
         var on = t === tab;
         t.setAttribute("aria-selected", on);
         t.tabIndex = on ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute("aria-controls"));
-        if (panel) panel.hidden = !on;
       });
       if (focus) tab.focus();
+
+      var next = document.getElementById(tab.getAttribute("aria-controls"));
+      var prev = stage.querySelector(".project:not([hidden])");
+      if (!next || prev === next) return;
+
+      // No animation if the person asks for less motion, or the browser is old
+      if (reduceMotion.matches || !stage.animate || !prev) { showOnly(next); return; }
+
+      var mine = ++step;
+      var startHeight = stage.offsetHeight;
+
+      // Direction: a project to the right glides in from the right
+      var order = tabs.map(function (t) { return t.getAttribute("aria-controls"); });
+      var dir = order.indexOf(next.id) > order.indexOf(prev.id) ? 1 : -1;
+
+      // 1. Glide out the old project
+      var out = prev.animate(
+        [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateX(" + (-dir * GLIDE) + "px)" }],
+        { duration: FADE_OUT, easing: "cubic-bezier(0.4, 0, 1, 1)", fill: "forwards" }
+      );
+      out.onfinish = function () {
+        out.cancel();
+        if (mine !== step) return;   // another tab was selected during the fade
+
+        // 2. Show the new project
+        showOnly(next);
+        var endHeight = stage.offsetHeight;
+
+        // 3. Smoothly change the height of the area
+        stage.style.overflow = "hidden";
+        var grow = stage.animate(
+          [{ height: startHeight + "px" }, { height: endHeight + "px" }],
+          { duration: FADE_IN, easing: EASE }
+        );
+        grow.onfinish = grow.oncancel = function () { if (mine === step) stage.style.overflow = ""; };
+
+        // 4. Glide in the new project from the side
+        next.animate(
+          [{ opacity: 0, transform: "translateX(" + (dir * GLIDE) + "px)" }, { opacity: 1, transform: "none" }],
+          { duration: FADE_IN, easing: EASE }
+        );
+      };
     }
+
     tabs.forEach(function (t, i) {
       t.addEventListener("click", function () { select(t); });
       t.addEventListener("keydown", function (e) {
@@ -350,8 +411,12 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
       thumbs.forEach(function (b) {
         b.addEventListener("click", function () {
           var img = b.querySelector("img");
+          if (big.src === img.src) return;
           big.src = img.src;
           big.alt = img.alt;
+          if (big.animate && !reduceMotion.matches) {
+            big.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+          }
           thumbs.forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
         });
       });
