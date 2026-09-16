@@ -8,6 +8,8 @@
   --muted: #56636F;
   --accent:#2346C4;
   --card:  #FFFFFF;
+  --see-through: 50%; /* how solid the frames are: 100% = solid, 0% = invisible */
+  --glass: color-mix(in srgb, var(--card) var(--see-through), transparent);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -49,7 +51,9 @@ img { max-width: 100%; }
   justify-content: space-between;
   gap: 16px;
   padding: 12px clamp(16px, 3vw, 28px);
-  background: var(--card);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   margin-bottom: 16px;
 }
 .home {
@@ -65,7 +69,9 @@ img { max-width: 100%; }
 
 /* ===== MAIN SHEET ===== */
 .sheet {
-  background: var(--card);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   padding: clamp(24px, 4vw, 64px);
 }
 
@@ -184,7 +190,7 @@ img { max-width: 100%; }
 .more .next { text-align: right; }
 
 footer { margin-top: 20px; color: var(--muted); font-size: 0.9rem; }
-footer span { background: var(--card); }
+footer span { background: var(--glass); }
 
 /* ===== FULL-SCREEN PICTURE VIEWER ===== */
 .viewer {

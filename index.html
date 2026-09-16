@@ -33,6 +33,8 @@
       --muted: #56636F;   /* small text */
       --accent:#2346C4;   /* links and highlights */
       --card:  #FFFFFF;   /* content areas */
+      --see-through: 50%; /* how solid the frames are: 100% = solid, 0% = invisible */
+      --glass: color-mix(in srgb, var(--card) var(--see-through), transparent);
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -98,22 +100,23 @@
 
     /* ===== SECTIONS ===== */
     .panel {
-      background: var(--card);
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
       padding: clamp(20px, 3vw, 44px);
     }
     .panel + .panel { margin-top: 28px; }
     .panel h2 { font-stretch: 112%; font-size: 1.9rem; line-height: 1.2; margin: 0 0 18px; }
 
     /* Background picture of the Projects section.
-       Change 80% to a lower value to see more of the picture. */
+       The see-through value is set by --see-through at the top. */
     .projects-panel {
       background:
         linear-gradient(
-          color-mix(in srgb, var(--card) 80%, transparent),
-          color-mix(in srgb, var(--card) 80%, transparent)
+          var(--glass),
+          var(--glass)
         ),
-        url("images/projects-background.jpg") center / cover,
-        var(--card);
+        url("images/projects-background.jpg") center / cover;
     }
 
     /* ===== PROJECTS ===== */
@@ -169,7 +172,7 @@
     .tools strong { color: var(--ink); }
 
     footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
-    footer span { background: var(--card); }
+    footer span { background: var(--glass); }
 
     /* ===== PHONES AND SMALL SCREENS ===== */
     @media (max-width: 800px) {
