@@ -46,7 +46,7 @@
 
       <!-- ===== MAIN PICTURE (the first picture in the list below) ===== -->
       <button class="lead pic" data-index="0" aria-label="Open IREC 2025, picture 1">
-        <img src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)">
+        <img decoding="async" src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)">
       </button>
 
       <div class="body">
@@ -88,9 +88,12 @@
       <section class="gallery" aria-labelledby="pictures-title">
         <h2 id="pictures-title">Pictures</h2>
         <ul class="grid">
-          <li><button class="pic" data-index="0" aria-label="Open IREC 2025, picture 1"><img src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="1" aria-label="Open IREC 2025, picture 2"><img src="images/IREC_2025_2.jpg" alt="IREC 2025, picture 2" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="2" aria-label="Open IREC 2025, picture 3"><img src="images/IREC_2025_3.jpg" alt="IREC 2025, picture 3" loading="lazy" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="0" aria-label="Open IREC 2025, picture 1"><img src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="1" aria-label="Open IREC 2025, picture 2"><img src="images/IREC_2025_2.jpg" alt="IREC 2025, picture 2" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="2" aria-label="Open IREC 2025, picture 3"><img src="images/IREC_2025_3.jpg" alt="IREC 2025, picture 3" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="3" aria-label="Open IREC 2025, picture 4"><img src="images/IREC_2025_4.jpg" alt="IREC 2025, picture 4" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="4" aria-label="Open IREC 2025, picture 5"><img src="images/IREC_2025_5.jpg" alt="IREC 2025, picture 5" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="5" aria-label="Open IREC 2025, picture 6"><img src="images/IREC_2025_6.jpg" alt="IREC 2025, picture 6" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
         </ul>
       </section>
 
@@ -110,6 +113,7 @@
     <button class="v-prev" aria-label="Previous picture">&#8249;</button>
     <figure>
       <img alt="">
+      <video controls playsinline preload="metadata" hidden></video>
       <figcaption></figcaption>
     </figure>
     <button class="v-next" aria-label="Next picture">&#8250;</button>

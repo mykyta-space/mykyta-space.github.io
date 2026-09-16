@@ -46,7 +46,7 @@
 
       <!-- ===== MAIN PICTURE (the first picture in the list below) ===== -->
       <button class="lead pic" data-index="0" aria-label="Open Machining, picture 1">
-        <img src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)">
+        <img decoding="async" src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)">
       </button>
 
       <div class="body">
@@ -88,14 +88,14 @@
       <section class="gallery" aria-labelledby="pictures-title">
         <h2 id="pictures-title">Pictures</h2>
         <ul class="grid">
-          <li><button class="pic" data-index="0" aria-label="Open Machining, picture 1"><img src="images/Machining_1.jpg" alt="Machining, picture 1" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="1" aria-label="Open Machining, picture 2"><img src="images/Machining_2.jpg" alt="Machining, picture 2" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="2" aria-label="Open Machining, picture 3"><img src="images/Machining_3.jpg" alt="Machining, picture 3" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="3" aria-label="Open Machining, picture 4"><img src="images/Machining_4.jpg" alt="Machining, picture 4" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="4" aria-label="Open Machining, picture 5"><img src="images/Machining_5.jpg" alt="Machining, picture 5" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="5" aria-label="Open Machining, picture 6"><img src="images/Machining_6.jpg" alt="Machining, picture 6" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="6" aria-label="Open Machining, picture 7"><img src="images/Machining_7.jpg" alt="Machining, picture 7" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="7" aria-label="Open Machining, picture 8"><img src="images/Machining_8.jpg" alt="Machining, picture 8" loading="lazy" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="0" aria-label="Open Machining, picture 1"><img src="images/Machining_1.jpg" alt="Machining, picture 1" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="1" aria-label="Open Machining, picture 2"><img src="images/Machining_2.jpg" alt="Machining, picture 2" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="2" aria-label="Open Machining, picture 3"><img src="images/Machining_3.jpg" alt="Machining, picture 3" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="3" aria-label="Open Machining, picture 4"><img src="images/Machining_4.jpg" alt="Machining, picture 4" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="4" aria-label="Open Machining, picture 5"><img src="images/Machining_5.jpg" alt="Machining, picture 5" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="5" aria-label="Open Machining, picture 6"><img src="images/Machining_6.jpg" alt="Machining, picture 6" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="6" aria-label="Open Machining, picture 7"><img src="images/Machining_7.jpg" alt="Machining, picture 7" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="7" aria-label="Open Machining, picture 8"><img src="images/Machining_8.jpg" alt="Machining, picture 8" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
         </ul>
       </section>
 
@@ -115,6 +115,7 @@
     <button class="v-prev" aria-label="Previous picture">&#8249;</button>
     <figure>
       <img alt="">
+      <video controls playsinline preload="metadata" hidden></video>
       <figcaption></figcaption>
     </figure>
     <button class="v-next" aria-label="Next picture">&#8250;</button>

@@ -46,7 +46,7 @@
 
       <!-- ===== MAIN PICTURE (the first picture in the list below) ===== -->
       <button class="lead pic" data-index="0" aria-label="Open Hybrid motor research, picture 1">
-        <img src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)">
+        <img decoding="async" src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)">
       </button>
 
       <div class="body">
@@ -87,8 +87,10 @@
       <section class="gallery" aria-labelledby="pictures-title">
         <h2 id="pictures-title">Pictures</h2>
         <ul class="grid">
-          <li><button class="pic" data-index="0" aria-label="Open Hybrid motor research, picture 1"><img src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="1" aria-label="Open Hybrid motor research, picture 2"><img src="images/Hybrids_2.jpg" alt="Hybrid motor research, picture 2" loading="lazy" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="0" aria-label="Open Hybrid motor research, picture 1"><img src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="1" aria-label="Open Hybrid motor research, picture 2"><img src="images/Hybrids_2.jpg" alt="Hybrid motor research, picture 2" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic is-video" data-index="2" data-video="images/Hybrids_1.mp4" data-alt="Hybrid motor test, video 1" aria-label="Play Hybrid motor test, video 1"><video src="images/Hybrids_1.mp4#t=0.1" muted playsinline preload="metadata" aria-hidden="true"></video><span class="play" aria-hidden="true"></span></button></li>
+          <li><button class="pic is-video" data-index="3" data-video="images/Hybrids_2.MOV" data-alt="Hybrid motor test, video 2" aria-label="Play Hybrid motor test, video 2"><video src="images/Hybrids_2.MOV#t=0.1" muted playsinline preload="metadata" aria-hidden="true"></video><span class="play" aria-hidden="true"></span></button></li>
         </ul>
       </section>
 
@@ -108,6 +110,7 @@
     <button class="v-prev" aria-label="Previous picture">&#8249;</button>
     <figure>
       <img alt="">
+      <video controls playsinline preload="metadata" hidden></video>
       <figcaption></figcaption>
     </figure>
     <button class="v-next" aria-label="Next picture">&#8250;</button>

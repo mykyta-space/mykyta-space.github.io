@@ -41,26 +41,57 @@
     if (e.persisted && sheet && sheet.getAnimations) sheet.getAnimations().forEach(function (x) { x.cancel(); });
   });
 
-  // 3. Full-screen picture viewer
+  // 3. Full-screen picture and video viewer
   var viewer = document.querySelector(".viewer");
-  var pics = Array.prototype.slice.call(document.querySelectorAll(".grid img"));
+  var items = Array.prototype.slice.call(document.querySelectorAll(".grid .pic"));
   var vImg = viewer.querySelector("img");
+  var vVid = viewer.querySelector("video");
   var vCap = viewer.querySelector("figcaption");
   var index = 0;
 
+  function stopVideo() {
+    vVid.pause();
+    vVid.removeAttribute("src");
+    vVid.load();
+  }
+
   function show(i, d) {
-    index = (i + pics.length) % pics.length;
-    vImg.src = pics[index].src;
-    vImg.alt = pics[index].alt;
-    vCap.textContent = pics[index].alt + "  (" + (index + 1) + " of " + pics.length + ")";
-    if (d && vImg.animate && !reduce) {
-      vImg.animate([{ opacity: 0, transform: "translateX(" + d * 60 + "px)" }, { opacity: 1, transform: "none" }],
+    index = (i + items.length) % items.length;
+    var b = items[index];
+    var videoSrc = b.getAttribute("data-video");
+    var alt, shown;
+    if (videoSrc) {
+      alt = b.getAttribute("data-alt") || "Video";
+      vImg.hidden = true;
+      vVid.hidden = false;
+      vVid.src = videoSrc;
+      vVid.play().catch(function () {});
+      shown = vVid;
+    } else {
+      var img = b.querySelector("img");
+      alt = img.alt;
+      stopVideo();
+      vVid.hidden = true;
+      vImg.hidden = false;
+      vImg.src = img.src;
+      vImg.alt = img.alt;
+      shown = vImg;
+    }
+    vCap.textContent = alt + "  (" + (index + 1) + " of " + items.length + ")";
+    if (d && shown.animate && !reduce) {
+      shown.animate([{ opacity: 0, transform: "translateX(" + d * 60 + "px)" }, { opacity: 1, transform: "none" }],
         { duration: 320, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" });
     }
-    var many = pics.length > 1;
+    var many = items.length > 1;
     viewer.querySelector(".v-prev").hidden = !many;
     viewer.querySelector(".v-next").hidden = !many;
   }
+
+  // If a video cannot play in this browser (for example, some .MOV files)
+  vVid.addEventListener("error", function () {
+    if (!vVid.getAttribute("src")) return;
+    vCap.textContent = "This video cannot play in this browser.";
+  });
 
   document.querySelectorAll(".pic").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -68,13 +99,17 @@
       if (viewer.showModal) viewer.showModal(); else viewer.setAttribute("open", "");
     });
   });
-  function close() { if (viewer.close) viewer.close(); else viewer.removeAttribute("open"); }
+  function close() {
+    stopVideo();
+    if (viewer.close) viewer.close(); else viewer.removeAttribute("open");
+  }
   viewer.querySelector(".v-close").addEventListener("click", close);
+  viewer.addEventListener("close", stopVideo);
   viewer.querySelector(".v-prev").addEventListener("click", function () { show(index - 1, -1); });
   viewer.querySelector(".v-next").addEventListener("click", function () { show(index + 1, 1); });
   viewer.addEventListener("click", function (e) { if (e.target === viewer) close(); });
   viewer.addEventListener("keydown", function (e) {
-    if (pics.length < 2) return;
+    if (items.length < 2 || e.target === vVid) return;   // arrow keys on a video control the video
     if (e.key === "ArrowLeft") show(index - 1, -1);
     if (e.key === "ArrowRight") show(index + 1, 1);
   });

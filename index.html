@@ -53,7 +53,17 @@
       font-size: 1.0625rem;
       line-height: 1.55;
       color: var(--ink);
-      background: var(--paper) url("images/Background.jpg") center / cover fixed;
+      background-color: var(--paper);
+    }
+    /* The background picture is on its own fixed layer.
+       This is much faster than "background-attachment: fixed" when you scroll. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url("images/Background.jpg") center / cover no-repeat;
+      transform: translateZ(0);
     }
 
     a { color: var(--accent); text-underline-offset: 3px; }
@@ -101,8 +111,6 @@
     /* ===== SECTIONS ===== */
     .panel {
       background: var(--glass);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
       padding: clamp(20px, 3vw, 44px);
     }
     .panel + .panel { margin-top: 28px; }
@@ -164,6 +172,19 @@
     .thumb { width: 96px; padding: 0; background: none; border: 2px solid transparent; cursor: pointer; }
     .thumb img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
     .thumb[aria-pressed="true"] { border-color: var(--accent); }
+    .gallery-video { display: block; width: 100%; max-height: 85vh; background: #000; }
+    .thumb video { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; pointer-events: none; background: #000; }
+    .is-video { position: relative; }
+    .play {
+      position: absolute; left: 50%; top: 50%;
+      width: 30px; height: 30px; margin: -15px 0 0 -15px;
+      border-radius: 50%; background: rgba(0, 0, 0, 0.6);
+    }
+    .play::after {
+      content: ""; position: absolute; left: 11px; top: 8px;
+      border-style: solid; border-width: 7px 0 7px 11px;
+      border-color: transparent transparent transparent #fff;
+    }
 
     .project h3 { font-stretch: 112%; font-size: 1.6rem; line-height: 1.2; margin: 0 0 4px; }
     .dates { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
@@ -222,11 +243,10 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         <!-- PROJECT 1 -->
         <article id="p1" class="project" role="tabpanel" aria-labelledby="tab-p1">
           <div class="gallery">
-            <img class="gallery-main" src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)">
+            <img class="gallery-main" loading="lazy" decoding="async" src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)">
             <div class="thumbs">
-              <button class="thumb" aria-pressed="true"><img src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2026_2.jpg" alt="IREC 2026, picture 2" onerror="ph(this)"></button>
-              
+              <button class="thumb" aria-pressed="true"><img loading="lazy" decoding="async" src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2026_2.jpg" alt="IREC 2026, picture 2" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -242,14 +262,14 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         <!-- PROJECT 2 -->
         <article id="p2" class="project" role="tabpanel" aria-labelledby="tab-p2" hidden>
           <div class="gallery">
-            <img class="gallery-main" src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)">
+            <img class="gallery-main" loading="lazy" decoding="async" src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)">
             <div class="thumbs">
-              <button class="thumb" aria-pressed="true"><img src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_2.jpg" alt="IREC 2025, picture 2" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_3.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_4.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_5.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/IREC_2025_6.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="true"><img loading="lazy" decoding="async" src="images/IREC_2025_1.jpg" alt="IREC 2025, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2025_2.jpg" alt="IREC 2025, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2025_3.jpg" alt="IREC 2025, picture 3" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2025_4.jpg" alt="IREC 2025, picture 4" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2025_5.jpg" alt="IREC 2025, picture 5" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/IREC_2025_6.jpg" alt="IREC 2025, picture 6" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -265,21 +285,22 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         <!-- PROJECT 3 -->
         <article id="p3" class="project" role="tabpanel" aria-labelledby="tab-p3" hidden>
           <div class="gallery">
-            <img class="gallery-main" src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)">
+            <img class="gallery-main" loading="lazy" decoding="async" src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)">
             <div class="thumbs">
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_2.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_3.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_4.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_5.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_6.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Spaceport_2024_7.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="true"><img loading="lazy" decoding="async" src="images/Spaceport_2024_1.jpg" alt="Spaceport 2024, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_2.jpg" alt="Spaceport 2024, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_3.jpg" alt="Spaceport 2024, picture 3" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_4.jpg" alt="Spaceport 2024, picture 4" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_5.jpg" alt="Spaceport 2024, picture 5" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_6.jpg" alt="Spaceport 2024, picture 6" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Spaceport_2024_7.jpg" alt="Spaceport 2024, picture 7" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
             <h3>Spaceport 2024</h3>
             <p class="dates">Sep 2023 – Jun 2024 · Sportsmanship Award</p>
             <p>My first IREC, at the Spaceport America Cup, with SEDS RD at ASU. The club restarted in 2024, and I was part of it from the beginning. On a small team, I worked personally on every part of our rocket, Project Wumbo. Our team won the Sportsmanship Award.</p>
+            <p>In the same year, I earned my NAR Level 1 and Level 2 high-power rocketry certifications. I designed, simulated, launched, and recovered two personal rockets: one significantly modified kit and one built from scratch.</p>
             <p class="tools"><strong>Tools:</strong> OpenRocket, RASAero, Ansys, Fusion 360</p>
             <a href="spaceport-2024.html">Read the full project</a>
           </div>
@@ -288,16 +309,16 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         <!-- PROJECT 4 -->
         <article id="p4" class="project" role="tabpanel" aria-labelledby="tab-p4" hidden>
           <div class="gallery">
-            <img class="gallery-main" src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)">
+            <img class="gallery-main" loading="lazy" decoding="async" src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)">
             <div class="thumbs">
-              <button class="thumb" aria-pressed="true"><img src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_2.jpg" alt="Machining, picture 2" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_3.jpg" alt="Machining, picture 3" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_4.jpg" alt="Machining, picture 4" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_5.jpg" alt="Machining, picture 5" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_6.jpg" alt="Machining, picture 6" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_7.jpg" alt="Machining, picture 7" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Machining_8.jpg" alt="Machining, picture 8" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="true"><img loading="lazy" decoding="async" src="images/Machining_1.jpg" alt="Machining, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_2.jpg" alt="Machining, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_3.jpg" alt="Machining, picture 3" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_4.jpg" alt="Machining, picture 4" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_5.jpg" alt="Machining, picture 5" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_6.jpg" alt="Machining, picture 6" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_7.jpg" alt="Machining, picture 7" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Machining_8.jpg" alt="Machining, picture 8" onerror="ph(this)"></button>
             </div>
           </div>
           <div class="project-info">
@@ -313,12 +334,13 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
         <!-- PROJECT 5 -->
         <article id="p5" class="project" role="tabpanel" aria-labelledby="tab-p5" hidden>
           <div class="gallery">
-            <img class="gallery-main" src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)">
+            <img class="gallery-main" loading="lazy" decoding="async" src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)">
+            <video class="gallery-video" controls playsinline preload="none" hidden></video>
             <div class="thumbs">
-              <button class="thumb" aria-pressed="true"><img src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Hybrids_2.jpg" alt="Hybrid motor research, picture 2" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="true"><img src="images/Hybrids_1.mp4" alt="Hybrid motor research, picture 1" onerror="ph(this)"></button>
-              <button class="thumb" aria-pressed="false"><img src="images/Hybrids_2.MOV" alt="Hybrid motor research, picture 2" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="true"><img loading="lazy" decoding="async" src="images/Hybrids_1.jpg" alt="Hybrid motor research, picture 1" onerror="ph(this)"></button>
+              <button class="thumb" aria-pressed="false"><img loading="lazy" decoding="async" src="images/Hybrids_2.jpg" alt="Hybrid motor research, picture 2" onerror="ph(this)"></button>
+              <button class="thumb is-video" aria-pressed="false" data-video="images/Hybrids_1.mp4" data-alt="Hybrid motor test, video 1" aria-label="Play Hybrid motor test, video 1"><video src="images/Hybrids_1.mp4#t=0.1" muted playsinline preload="none" aria-hidden="true"></video><span class="play" aria-hidden="true"></span></button>
+              <button class="thumb is-video" aria-pressed="false" data-video="images/Hybrids_2.MOV" data-alt="Hybrid motor test, video 2" aria-label="Play Hybrid motor test, video 2"><video src="images/Hybrids_2.MOV#t=0.1" muted playsinline preload="none" aria-hidden="true"></video><span class="play" aria-hidden="true"></span></button>
             </div>
           </div>
           <div class="project-info">
@@ -433,21 +455,40 @@ undergraduate Aerospace Engineer. I am passionate about space exploration and ae
       document.getElementById("projects").scrollIntoView();
     })();
 
-    // Picture galleries: select a small picture to show it large
+    // Picture galleries: select a small picture or video to show it large
     document.querySelectorAll(".gallery").forEach(function (g) {
       var big = g.querySelector(".gallery-main");
+      var vid = g.querySelector(".gallery-video");
       var thumbs = g.querySelectorAll(".thumb");
       thumbs.forEach(function (b) {
         b.addEventListener("click", function () {
-          var img = b.querySelector("img");
-          if (big.src === img.src) return;
-          big.src = img.src;
-          big.alt = img.alt;
-          if (big.animate && !reduceMotion.matches) {
-            big.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
+          var shown;
+          var videoSrc = b.getAttribute("data-video");
+          if (videoSrc && vid) {
+            big.hidden = true;
+            vid.hidden = false;
+            if (vid.getAttribute("src") !== videoSrc) vid.src = videoSrc;
+            vid.play().catch(function () {});
+            shown = vid;
+          } else {
+            var img = b.querySelector("img");
+            if (vid) { vid.pause(); vid.hidden = true; }
+            big.hidden = false;
+            if (big.src !== img.src) { big.src = img.src; big.alt = img.alt; }
+            shown = big;
+          }
+          if (shown.animate && !reduceMotion.matches) {
+            shown.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 300, easing: "ease-out" });
           }
           thumbs.forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
         });
+      });
+    });
+
+    // Stop a video when you change to a different project
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        document.querySelectorAll(".gallery-video").forEach(function (v) { v.pause(); });
       });
     });
 

@@ -27,8 +27,18 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper) url("images/Background.jpg") center / cover fixed;
+  background-color: var(--paper);
   overflow-x: hidden;
+}
+/* The background picture is on its own fixed layer.
+   This is much faster than "background-attachment: fixed" when you scroll. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("images/Background.jpg") center / cover no-repeat;
+  transform: translateZ(0);
 }
 
 a { color: var(--accent); text-underline-offset: 3px; }
@@ -52,8 +62,6 @@ img { max-width: 100%; }
   gap: 16px;
   padding: 12px clamp(16px, 3vw, 28px);
   background: var(--glass);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
   margin-bottom: 16px;
 }
 .home {
@@ -70,8 +78,6 @@ img { max-width: 100%; }
 /* ===== MAIN SHEET ===== */
 .sheet {
   background: var(--glass);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
   padding: clamp(24px, 4vw, 64px);
 }
 
@@ -159,7 +165,37 @@ img { max-width: 100%; }
   object-fit: cover;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+.grid video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #000;
+  pointer-events: none;
+}
 .grid .pic:hover img { transform: scale(1.04); }
+.is-video { position: relative; }
+.play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+.play::after {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 16px;
+  border-style: solid;
+  border-width: 12px 0 12px 19px;
+  border-color: transparent transparent transparent #fff;
+}
+.is-video:hover .play { transform: scale(1.1); }
 
 /* ===== OTHER PROJECTS ===== */
 .more {
@@ -202,13 +238,13 @@ footer span { background: var(--glass); }
   padding: 0;
   border: 0;
   background: rgba(10, 14, 18, 0.97);
-  backdrop-filter: blur(6px);
   color: #fff;
 }
 .viewer[open] { display: flex; align-items: center; justify-content: center; }
 .viewer::backdrop { background: transparent; }
 .viewer figure { margin: 0; text-align: center; }
-.viewer img {
+.viewer img,
+.viewer video {
   display: block;
   max-width: 86vw;
   max-height: 84vh;
@@ -238,7 +274,7 @@ footer span { background: var(--glass); }
   .body { grid-template-columns: 1fr; }
   .facts { position: static; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-  .viewer img { max-width: 100vw; }
+  .viewer img, .viewer video { max-width: 100vw; }
   .v-prev, .v-next { top: auto; bottom: 16px; }
 }
 @media (max-width: 520px) {

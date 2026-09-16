@@ -46,7 +46,7 @@
 
       <!-- ===== MAIN PICTURE (the first picture in the list below) ===== -->
       <button class="lead pic" data-index="0" aria-label="Open IREC 2026, picture 1">
-        <img src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)">
+        <img decoding="async" src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" onerror="ph(this)">
       </button>
 
       <div class="body">
@@ -88,9 +88,8 @@
       <section class="gallery" aria-labelledby="pictures-title">
         <h2 id="pictures-title">Pictures</h2>
         <ul class="grid">
-          <li><button class="pic" data-index="0" aria-label="Open IREC 2026, picture 1"><img src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="1" aria-label="Open IREC 2026, picture 2"><img src="images/IREC_2026_2.jpg" alt="IREC 2026, picture 2" loading="lazy" onerror="ph(this)"></button></li>
-          <li><button class="pic" data-index="2" aria-label="Open Cactus Cooler rocket"><img src="images/Cactus_Cooler_1.jpg" alt="Cactus Cooler rocket" loading="lazy" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="0" aria-label="Open IREC 2026, picture 1"><img src="images/IREC_2026_1.jpg" alt="IREC 2026, picture 1" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
+          <li><button class="pic" data-index="1" aria-label="Open IREC 2026, picture 2"><img src="images/IREC_2026_2.jpg" alt="IREC 2026, picture 2" loading="lazy" decoding="async" onerror="ph(this)"></button></li>
         </ul>
       </section>
 
@@ -110,6 +109,7 @@
     <button class="v-prev" aria-label="Previous picture">&#8249;</button>
     <figure>
       <img alt="">
+      <video controls playsinline preload="metadata" hidden></video>
       <figcaption></figcaption>
     </figure>
     <button class="v-next" aria-label="Next picture">&#8250;</button>
